@@ -45,10 +45,10 @@ function load_projects_from_client_new_vendor_account_function( $form ) {
 		$service = new Google_Service_Sheets($client);
 	
 		//Your GSheet ID
-    	$spreadsheetId = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+    		$spreadsheetId = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
 	
 		//Select field ID in your Gravity Form where you want the names to load
-    	$dropdown_field_ID = 'XX';
+    		$dropdown_field_ID = 'XX';
 	
 		// Go through each list of active (ACT) jobs for each subsidiary
 		$ranges = [ 
@@ -75,29 +75,29 @@ function load_projects_from_client_new_vendor_account_function( $form ) {
 		//echo '<pre>'; print_r($values); echo '</pre>';
 		
 		//Go through all the fields in the form
-    	foreach ( $form['fields'] as $field ) { 	
+		foreach ( $form['fields'] as $field ) { 	
 			//Check if field type is a select dropdown and if its ID is correct, then...
-         	if ( $field->id == $dropdown_field_ID) {
-			//echo 'looping through each field..';
-			// ...go through the multi-dimensional array to fileter out duplicates and empty values
-				foreach($values as $value){
-					foreach($value as $minivalue){
-						foreach($minivalue as $indiv_value){
-							//print($indiv_value);
-							//Verify that the cell is not empty, then
-							if (!empty($indiv_value)) {
-								// If it matches the previously selected project, then
-								if ($indiv_value == $selected_project) {								
-									// Add to the array the next cell from the row (the project name)
-									//$all_jobs[] = $indiv_value;
-									$all_jobs[] = $minivalue[1]." (".$minivalue[3].")";
-									//$all_jobs[] = next($minivalue);
-									//printf("For project ".$minivalue[1]." the approver is:". $minivalue[3]);	
-								}								
-							}
-						}		
-					}
-  			    }
+         		if ( $field->id == $dropdown_field_ID) {
+				//echo 'looping through each field..';
+				// ...go through the multi-dimensional array to fileter out duplicates and empty values
+					foreach($values as $value){
+						foreach($value as $minivalue){
+							foreach($minivalue as $indiv_value){
+								//print($indiv_value);
+								//Verify that the cell is not empty, then
+								if (!empty($indiv_value)) {
+									// If it matches the previously selected project, then
+									if ($indiv_value == $selected_project) {								
+										// Add to the array the next cell from the row (the project name)
+										//$all_jobs[] = $indiv_value;
+										$all_jobs[] = $minivalue[1]." (".$minivalue[3].")";
+										//$all_jobs[] = next($minivalue);
+										//printf("For project ".$minivalue[1]." the approver is:". $minivalue[3]);	
+									}								
+								}
+							}		
+						}
+  			  	}
 				
 				// Process the filtered out jobs if any were loaded.
 				if (!empty($all_jobs)) {
@@ -127,14 +127,14 @@ function load_projects_from_client_new_vendor_account_function( $form ) {
 			 
 				}
 				
-		 		//Add a place holder - if desired
-            	//$placeholder_text = "Select project";
-				//$field->placeholder = $placeholder_text;
+		 	//Add a place holder - if desired
+            		//$placeholder_text = "Select project";
+			//$field->placeholder = $placeholder_text;
 				
-            	//Add the new names to the form choices
+            		//Add the new names to the form choices
            		$field->choices = $jobs_to_display;
-				$field->inputs = $inputs;
-            	// Print out the contents of the array (troubleshooting only)
+			$field->inputs = $inputs;
+            		// Print out the contents of the array (troubleshooting only)
            		//echo '<pre>'; print_r($jobs_to_display); echo '</pre>';
 			}
 		}
